@@ -7,4 +7,5 @@ def index():
     '''
     index veiw function
     '''
-    return render_template('index.html')
+    title = 'My personal Blog'
+    return render_template('index.html' , title = title)
