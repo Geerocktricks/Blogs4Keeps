@@ -3,7 +3,7 @@ class Config:
     '''
     General configuration parent class
     '''
-    pass
+    SECRET_KEY = os.environ.get('SECRET_KEY')
 
 
 
