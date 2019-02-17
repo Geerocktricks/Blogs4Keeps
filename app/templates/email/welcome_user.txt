@@ -1,0 +1,2 @@
+Hello {{user.username}} , 
+Thank you for creating an account with my application. I want to welcome you to the family. Hope you have fun blogging here!!

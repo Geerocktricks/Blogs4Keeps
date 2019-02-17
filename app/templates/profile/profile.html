@@ -1,40 +1,31 @@
 {% extends 'base.html'%}
 
 {% block content %}
+<style>
+  @import url('https://fonts.googleapis.com/css?family=Dancing+Script');
+  @import url('https://fonts.googleapis.com/css?family=Amatic+SC');
+  @import url('https://fonts.googleapis.com/css?family=Abril+Fatface');
+
+
+</style>
 <div class="container">
-<div class="row">
-<!-- displaying  Username-->
-  <div class="col-md-4">
-    <h3> {{user.username| capitalize}} </h3>
-
-    <!--Displaying user bio-->
-    {% if user.bio %}
-      <p> {{user.bio}}</p>
-    {%else%}
-      <p> {{user.username| capitalize}} has no bio </p>
-    {% endif %}
-
-    {% if user == current_user %}
-      <a href="{{url_for('main.update_profile',uname=user.username)}}">Edit bio</a>
-    {% endif %}
-  </div>
-
-  <!--Display profile photo-->
-  <div class="col-md-4">
+  <div class="row col-md-12">
+        <!--Display profile photo-->
+  <div class="col-md-6">
 
     {% if user.profile_pic_path %}
     <img src="{{url_for('static',filename=user.profile_pic_path)}}" alt="" class="img-thumbnail"style="border-radius: 60% ; width: 200px; height: 200px; margin-top: 60px ">
-    <p style="font-weight:bold;font-size:20px;"> {{user.username| capitalize}} </p>
+    <h3 style="font-family: 'Dancing Script', cursive; font-weight:bolder; font-size: 30px"> {{user.username| capitalize}} </h3>
     {%else%}
     <p>No profile picture</p>
     {% endif %}
 
     {% if user == current_user %}
-      <form action="{{url_for('main.update_pic',uname=user.username)}}" method="post" enctype = "multipart/form-data" style="padding-top:60px;">
+      <form action="{{url_for('main.update_pic',uname=user.username)}}" method="post" enctype = "multipart/form-data" style=" margin-right: -450px">
 
-        <form-group>
-          <input type="file"  name="photo" class="form-control" required>
-          <input type="submit">
+        <form-group >
+          <input type="file"  name="photo" class="form-control" required style=" margin-bottom: 10px">
+          <input type="submit" class="btn btn-info" >
         </form-group>
         <br>
         <br>
@@ -45,6 +36,36 @@
     {% endif %}
 
   </div>
+  <div class="row">
+    <!-- displaying  Username-->
+      <div class="col-md-6">
+        <h3 style=" margin-left:-300px; margin-top: 100px;font-family: 'Abril Fatface', cursive; font-size: 20px"> BIO: </h3>
+    
+        <!--Displaying user bio-->
+        {% if user.bio %}
+          <p style=" margin-left:-300px; margin-top: 0px; width: 300px ; font-size: 25px; font-family: 'Amatic SC', cursive;
+          "> "{{user.bio}}"</p>
+        {%else%}
+          <p> {{user.username| capitalize}} has no bio </p>
+        {% endif %}
+    
+        {% if user == current_user %}
+          <a href="{{url_for('main.update_profile',uname=user.username)}}" class="btn btn-info">Edit bio</a>
+        {% endif %}
+      </div>
+  </div>
+  <div class="row col-md-12">
+    <div class="col-md-6">
+      <img src="https://images.unsplash.com/photo-1516414447565-b14be0adf13e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60" alt="hero1" style="height:400px">
+    </div>
+    <div class="col-md-6">
+      <img src="https://images.unsplash.com/photo-1493723843671-1d655e66ac1c?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60" alt="hero2" style="height:195px; margin-bottom: 10px; width: 430px">
+      <img src="https://images.unsplash.com/photo-1432888622747-4eb9a8efeb07?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60" alt="hero2" style="height:195px ; width: 430px">
+    </div>
+  </div>
+  <h2 style="text-align:center;font-family: 'Abril Fatface', cursive; text-decoration: underline; margin-top: 60px ">BLOGS</h2>
 </div>
+
+  
 </div>
 {% endblock %}
