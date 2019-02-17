@@ -23,3 +23,9 @@ def test_check_instance_variables(self):
 def test_save_blog(self):
         self.new_blog.save_blog()
         self.assertTrue(len(Review.query.all())>0)
+
+def test_get_blog_by_id(self):
+
+        self.new_blog.save_review()
+        got_blogs = Blog.get_blogs(12345)
+        self.assertTrue(len(got_blogs) == 1)
