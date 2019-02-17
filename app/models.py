@@ -63,7 +63,7 @@ class Blog(db.Model):
     date = db.Column(db.String)
     time = db.Column(db.String)
     user_id = db.Column(db.Integer, db.ForeignKey("users.id"))
-    # comments = db.relationship("Comment", backref = "pitch", lazy = "dynamic")
+    comments = db.relationship("Comment", backref = "pitch", lazy = "dynamic")
 
 
     def save_blogs(self):
@@ -72,5 +72,28 @@ class Blog(db.Model):
 
     @classmethod
     def get_blogs(cls,id):
-        blog = Blog.query.filter_by(blog_id = blog.id).order_by(blog.time.desc())
+        blogs = Blog.query.filter_by(blog_id = blog.id).order_by(blog.time.desc())
         return reviews
+
+
+class Comment(db.Model):
+    """
+    This is the class which we will use to create the comments for the pitches
+    """
+    __tablename__ = "comments"
+    id = db.Column(db.Integer, primary_key = True)
+    content = db.Column(db.String)
+    date = db.Column(db.String)
+    time = db.Column(db.String)
+    user_id = db.Column(db.Integer, db.ForeignKey("users.id"))
+    blog_id = db.Column(db.Integer, db.ForeignKey("blogs.id"))
+
+    def save_comment(self):
+        db.session.add(self)
+        db.session.commit()
+
+
+    @classmethod
+    def get_comments(cls,id):
+        comments = Comment.query.filter_by(pitch_id = pitch.id).order_by(Comment.time.desc())
+        return comments
