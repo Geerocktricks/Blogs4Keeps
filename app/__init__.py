@@ -4,6 +4,7 @@ from config import config_options
 from flask import Blueprint
 from flask_login import LoginManager
 from flask_sqlalchemy import SQLAlchemy
+from flask_uploads import UploadSet,configure_uploads,IMAGES
 
 login_manager = LoginManager()
 login_manager.session_protection = 'strong'
@@ -11,6 +12,7 @@ login_manager.login_view = 'auth.login'
 
 bootstrap = Bootstrap()
 db = SQLAlchemy()
+photos = UploadSet('photos',IMAGES)
 
 def create_app(config_name):
 
@@ -32,7 +34,9 @@ def create_app(config_name):
     login_manager.init_app(app)
     db.init_app(app)
 
+    # configure UploadSet
+    configure_uploads(app,photos)
 
-    # Will add the views and forms
+
 
     return app
