@@ -5,6 +5,7 @@ from ..models import User, Role
 from .forms import UpdateProfile
 from .. import db,photos
 import datetime
+import markdown2  
 
 #views
 @main.route('/')
@@ -25,8 +26,9 @@ def profile(uname):
 
     if user is None:
         abort(404)
+    title = 'My personal Blog'
 
-    return render_template("profile/profile.html", user = user)
+    return render_template("profile/profile.html", user = user , title = title)
 
 
 @main.route('/user/<uname>/update',methods = ['GET','POST'])
@@ -59,3 +61,12 @@ def update_pic(uname):
         user.profile_pic_path = path
         db.session.commit()
     return redirect(url_for('main.profile',uname=uname))
+
+
+@main.route('/blog/<int:id>')
+def single_blog(id):
+    blog=Blog.query.get(id)
+    if blog is None:
+        abort(404)
+    format_blog = markdown2.markdown(review.movie_review,extras=["code-friendly", "fenced-code-blocks"])
+    return render_template('blog.html',blog = blog,format_blog=format_blog)
