@@ -64,6 +64,59 @@
     </div>
   </div>
   <h2 style="text-align:center;font-family: 'Abril Fatface', cursive; text-decoration: underline; padding: 60px ">BLOGS</h2>
+
+  <div class="row col-md-12">
+        {% for message in get_flashed_messages() %}
+            <div class="alert alert-success">
+              <button type="button" class="close" data-dismiss="alert">&times;</button>
+              {{ message }}
+            </div>
+        {% endfor %}
+
+        {% if blogs %}
+        {% for row in blogs | batch(2) %}
+        <div class="row col-md-12">
+            {% for blog in row %}
+              <div class="col-md-6 jumbotron bg-success " style="background-color:black;">
+                <div class="skewedBox skew width:900px">
+                    <div class="categories1" style="height:270px;width:900px">
+                        <h3 class="source-name">{{blog.title | upper}}</h3>
+                        <p>Posted by <a href="{{url_for('main.index',user_id = pitch.user.id)}}"><strong>{{blog.user.name}}</strong></a></p>
+                        <p>Date: <strong>{{blog.date}}</strong> at <strong>{{blog.time}}</strong></p>
+                    </div>
+                </div>
+                <!-- <div class="sec2"> -->
+                    <div class="categories2" style="">
+                        <p style="color: #ffff">"{{blog.content}}"</p>
+                        <p style="color:#ffff">CATEGORY: <strong style="color:#ffff">{{blog.category | upper}}</strong></p>
+                    </div>
+                </div>
+                
+            </div>
+            {% endfor %}
+        </div> 
+        {% endfor %}
+    {% else %}
+        <h2 style="margin-top:60px; color: #ffff" >You have no pitches in this category</h2>
+        {% if current_user.is_authenticated %}
+        <div class="sample row col-md-12">
+          <div class="col-md-6 jumbotron"> 
+            <img src="https://images.unsplash.com/photo-1517832207067-4db24a2ae47c?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60" alt="happiness" style="position:relative; margin-left:-60px; width:524px; margin-top: -50px">
+            <div class="row ">
+              <h3 class="col-md-4" style="font-weight:bold; text-transform:uppercase; text-decoration: underline ; font-family: 'Abril Fatface', cursive; ">Advice</h3>
+              <h6 style="float:right">Date: 17-02-2019</h6>
+            </div>
+            <p style="font-family: 'Amatic SC', cursive;font-size:25px">"Blessed are those who find love and appreciation in the simplest of things for they never find trouble trying to fit in"</p>
+            <h5 style="font-weight:bold">Posted by: <span style="font-style:italic">-{{user.username| capitalize}}-</span></h5>
+          </div>
+          <!-- <div class="col-md-6 jumbotron">
+            
+          </div> -->
+        </div>
+        <a href="{{url_for('main.add_blog' , uname = current_user.username)}}" class="btn btn-info" style="margin-bottom:20px">Add a blog post</a>
+        {% endif %}
+    {% endif %}
+  </div>
 </div>
 
   

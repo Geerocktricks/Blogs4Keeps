@@ -12,7 +12,7 @@ class UpdateProfile(FlaskForm):
 class AddBlogForm(FlaskForm):
     title = StringField("Title", validators = [Required()])
     blog = TextAreaField("Add a blog", validators = [Required()])
-    # category = StringField('Categories')
+    category = StringField('Categories')
     submit = SubmitField("Add blog")
 
 class AddComment(FlaskForm):
