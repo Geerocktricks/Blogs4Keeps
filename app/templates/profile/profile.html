@@ -13,9 +13,9 @@
         <!--Display profile photo-->
   <div class="col-md-6">
 
-    {% if user.profile_pic_path %}
-    <img src="{{url_for('static',filename=user.profile_pic_path)}}" alt="" class="img-thumbnail"style="border-radius: 60% ; width: 200px; height: 200px; margin-top: 60px ">
-    <h3 style="font-family: 'Dancing Script', cursive; font-weight:bolder; font-size: 30px"> {{user.username| capitalize}} </h3>
+    {% if current_user.profile_pic_path %}
+    <img src="{{url_for('static',filename=current_user.profile_pic_path)}}" alt="" class="img-thumbnail"style="border-radius: 60% ; width: 200px; height: 200px; margin-top: 60px ">
+    <h3 style="font-family: 'Dancing Script', cursive; font-weight:bolder; font-size: 30px"> {{current_user.username| capitalize}} </h3>
     {%else%}
     <p>No profile picture</p>
     {% endif %}
@@ -42,11 +42,11 @@
         <h3 style=" margin-left:-300px; margin-top: 100px;font-family: 'Abril Fatface', cursive; font-size: 20px"> BIO: </h3>
     
         <!--Displaying user bio-->
-        {% if user.bio %}
+        {% if current_user.bio %}
           <p style=" margin-left:-300px; margin-top: 0px; width: 300px ; font-size: 25px; font-family: 'Amatic SC', cursive;
-          "> "{{user.bio}}"</p>
+          "> "{{current_user.bio}}"</p>
         {%else%}
-          <p> {{user.username| capitalize}} has no bio </p>
+          <p> {current_user{user.username| capitalize}} has no bio </p>
         {% endif %}
     
         {% if user == current_user %}
@@ -64,6 +64,23 @@
     </div>
   </div>
   <h2 style="text-align:center;font-family: 'Abril Fatface', cursive; text-decoration: underline; padding: 60px ">BLOGS</h2>
+  {% if current_user.is_authenticated %}
+        <div class="sample row col-md-12">
+          <div class="col-md-6 jumbotron"> 
+            <img src="https://images.unsplash.com/photo-1517832207067-4db24a2ae47c?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60" alt="happiness" style="position:relative; margin-left:-60px; width:540px; margin-top: -50px">
+            <div class="row ">
+              <h3 class="col-md-4" style="font-weight:bold; text-transform:uppercase; text-decoration: underline ; font-family: 'Abril Fatface', cursive; ">Advice</h3>
+              <h6 >Date: 17-02-2019</h6>
+            </div>
+            <p style="font-family: 'Amatic SC', cursive;font-size:25px">"Blessed are those who find love and appreciation in the simplest of things for they never find trouble trying to fit in"</p>
+            <h5 style="font-weight:bold">Posted by: <span style="font-style:italic">-{{current_user.username| capitalize}}-</span></h5>
+          </div>
+          <!-- <div class="col-md-6 jumbotron">
+            
+          </div> -->
+        </div>
+        <a href="{{url_for('main.add_blog' , uname = current_user.username)}}" class="btn btn-info" style="margin-bottom:20px">Add a blog post</a>
+        {% endif %}
 
   <div class="row col-md-12">
         {% for message in get_flashed_messages() %}
@@ -77,18 +94,16 @@
         {% for row in blogs | batch(2) %}
         <div class="row col-md-12">
             {% for blog in row %}
-              <div class="col-md-6 jumbotron bg-success " style="background-color:black;">
-                <div class="skewedBox skew width:900px">
-                    <div class="categories1" style="height:270px;width:900px">
-                        <h3 class="source-name">{{blog.title | upper}}</h3>
-                        <p>Posted by <a href="{{url_for('main.index',user_id = pitch.user.id)}}"><strong>{{blog.user.name}}</strong></a></p>
-                        <p>Date: <strong>{{blog.date}}</strong> at <strong>{{blog.time}}</strong></p>
+              <div class="col-md-6 jumbotron bg-success ">
+                    <div class="categories1">
+                        <img src="https://images.unsplash.com/photo-1550433728-a45e9e89d067?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60" alt="for blog" style="position:relative; margin-left:-60px; width:540px; margin-top: -50px">
+                        <p style="text-decoration: underline"><strong style="font-family: 'Abril Fatface', cursive;">{{blog.category | upper}}</strong></p>
+                        <h6 style="float:right"><span>Date: {{blog.date}} at {{blog.time}}</span></h6>
+                        <p style="font-family: 'Amatic SC', cursive;font-size:25px">"{{blog.content}}"</p>
+                        <h5 style="font-weight:bold">Posted by :<a href="{{url_for('main.index',user_id = blog.user.id)}}" style="font-style:italic"><strong>-{{current_user.username| capitalize}}-</strong></a></h5>
                     </div>
-                </div>
-                <!-- <div class="sec2"> -->
-                    <div class="categories2" style="">
-                        <p style="color: #ffff">"{{blog.content}}"</p>
-                        <p style="color:#ffff">CATEGORY: <strong style="color:#ffff">{{blog.category | upper}}</strong></p>
+                    <div class="categories2">
+                        
                     </div>
                 </div>
                 
@@ -98,23 +113,7 @@
         {% endfor %}
     {% else %}
         <h2 style="margin-top:60px; color: #ffff" >You have no pitches in this category</h2>
-        {% if current_user.is_authenticated %}
-        <div class="sample row col-md-12">
-          <div class="col-md-6 jumbotron"> 
-            <img src="https://images.unsplash.com/photo-1517832207067-4db24a2ae47c?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60" alt="happiness" style="position:relative; margin-left:-60px; width:524px; margin-top: -50px">
-            <div class="row ">
-              <h3 class="col-md-4" style="font-weight:bold; text-transform:uppercase; text-decoration: underline ; font-family: 'Abril Fatface', cursive; ">Advice</h3>
-              <h6 style="float:right">Date: 17-02-2019</h6>
-            </div>
-            <p style="font-family: 'Amatic SC', cursive;font-size:25px">"Blessed are those who find love and appreciation in the simplest of things for they never find trouble trying to fit in"</p>
-            <h5 style="font-weight:bold">Posted by: <span style="font-style:italic">-{{user.username| capitalize}}-</span></h5>
-          </div>
-          <!-- <div class="col-md-6 jumbotron">
-            
-          </div> -->
-        </div>
-        <a href="{{url_for('main.add_blog' , uname = current_user.username)}}" class="btn btn-info" style="margin-bottom:20px">Add a blog post</a>
-        {% endif %}
+        
     {% endif %}
   </div>
 </div>

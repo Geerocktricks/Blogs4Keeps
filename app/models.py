@@ -20,6 +20,7 @@ class User(UserMixin,db.Model):
     bio = db.Column(db.String(255))
     profile_pic_path = db.Column(db.String())
     blogs = db.relationship("Blog", backref= "user", lazy="dynamic")
+    comments = db.relationship("Comment", backref="user", lazy="dynamic")
     pass_secure = db.Column(db.String(255))
 
     @property
@@ -66,14 +67,16 @@ class Blog(db.Model):
     comments = db.relationship("Comment", backref = "pitch", lazy = "dynamic")
 
 
-    def save_blogs(self):
+    def save_blog(self):
         db.session.add(self)
         db.session.commit()
 
     @classmethod
-    def get_blogs(cls,id):
-        blogs = Blog.query.filter_by(blog_id = blog.id).order_by(blog.time.desc())
-        return reviews
+    def get_blog_comments(self):
+        blogs = Blog.query.filter_by(id = self.id).first()
+        Comments = Comment.query.filter_by(blog_id = blog.id).order_by(Comment.time.desc())
+
+        return comments
 
 
 class Comment(db.Model):
@@ -91,9 +94,3 @@ class Comment(db.Model):
     def save_comment(self):
         db.session.add(self)
         db.session.commit()
-
-
-    @classmethod
-    def get_comments(cls,id):
-        comments = Comment.query.filter_by(pitch_id = pitch.id).order_by(Comment.time.desc())
-        return comments

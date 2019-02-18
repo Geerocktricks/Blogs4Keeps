@@ -10,11 +10,16 @@
         {% endif %}
         <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
 
 
         <style>
             @import url('https://fonts.googleapis.com/css?family=Abril+Fatface');
             @import url('https://fonts.googleapis.com/css?family=Amatic+SC');
+            @import url('https://fonts.googleapis.com/css?family=Dancing+Script');
+            @import url('https://fonts.googleapis.com/css?family=Amatic+SC');
+            @import url('https://fonts.googleapis.com/css?family=Abril+Fatface');
+
         </style>
     </head>
     <body>
@@ -24,8 +29,12 @@
                 <a href="#" style="float:right"><span class="glyphicon glyphicon-user"></span></a>
                 <div class="row col-md-12">
                     <div class="sidebar col-md-1" style="background-color:rgb(54, 52, 53); height:95vh">
-                        <p><i class="fas fa-adjust"></i></p>
-                        <a href="#"><span class="glyphicon glyphicon-twitter"></span></a>
+                        <ul>
+                            <li><a href="/"><span style="color:#ffff; font-size:25px;margin-bottom: 40px;text-align:center;margin-top:30vh;"class="glyphicon glyphicon-home"></span></a></li>
+                            <li><a href="{{url_for('main.profile',uname=current_user.username)}}"><span style="color:#ffff; font-size:25px;margin-bottom: 40px;text-align:center;"class="glyphicon glyphicon-user"></span></a></li>
+                            <li><a href="{{url_for('auth.logout')}}"><span style="color:#ffff; font-size:25px;margin-bottom: 40px;text-align:center;"class="glyphicon glyphicon-log-out"></span></a></li>
+                        </ul>
+                        
 
                     </div>
                     <div class="intro col-md-5" style="background-color:aliceblue; height:95vh">
@@ -50,8 +59,8 @@
                                   <img src="http://moazzem.me/wp-content/uploads/2019/01/pink-colored-wallpaper-solid-plain-color-download.jpg" style="height:95vh; margin-left:-20px" alt="Los Angeles">
                                 </div>
                                 <div class="carousel-caption" style="margin-top:-60vh">
-                                  <h2 style="font-size: bold; text-decoration:underline"> DO WHAT MAKES YOU HAPPY</h2>
-                                  <h3>'Do stuff. Be clenched, curious. Not waiting for inspiration’s shove or society’s kiss on your forehead. Pay attention. It’s all about paying attention. Attention is vitality. It connects you with others. It makes you eager. Stay eager. (-Briston Marcus-)'</h3>
+                                  <h2 style="font-size: bold; text-decoration:underline;font-family: 'Abril Fatface', cursive;"> DO WHAT MAKES YOU HAPPY</h2>
+                                  <h3 style="font-family: monospace;">'Do stuff. Be clenched, curious. Not waiting for inspiration’s shove or society’s kiss on your forehead. Pay attention. It’s all about paying attention. Attention is vitality. It connects you with others. It makes you eager. Stay eager. ("-BristonMarcus-")'</h3>
                                 </div>
                             
                                 <div class="item">

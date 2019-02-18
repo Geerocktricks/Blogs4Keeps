@@ -7,6 +7,7 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_uploads import UploadSet,configure_uploads,IMAGES
 from flask_mail import Mail
 from flask_simplemde import SimpleMDE
+from config import DevConfig
 
 login_manager = LoginManager()
 login_manager.session_protection = 'strong'
@@ -20,7 +21,7 @@ photos = UploadSet('photos',IMAGES)
 
 def create_app(config_name):
 
-    app = Flask(__name__)
+    app = Flask(__name__,instance_relative_config = True)
 
     # Registering the blueprint
     from .main import main as main_blueprint
