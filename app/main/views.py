@@ -5,6 +5,7 @@ from ..models import User, Role , Blog , Comment
 from .forms import UpdateProfile,AddBlogForm,AddComment
 from .. import db,photos
 import datetime
+from ..request import random_quote
 import markdown2  
 
 #views
@@ -14,7 +15,10 @@ def index():
     index veiw function
     '''
     title = 'My personal Blog'
-    return render_template('index.html' , title = title)
+    myquote= random_quote()
+    quote = myquote["quote"]
+    quote_author = myquote ["author"]
+    return render_template('index.html' , title = title, quote= quote, quote_author= quote_author)
 
 
 @main.route('/user/<uname>')
@@ -126,3 +130,5 @@ def view_comments(pitch_id):
     comments = blog.get_pitch_comments()
 
     return render_template("view_comments.html", comments = comments,blog = blog,title = title)
+
+
